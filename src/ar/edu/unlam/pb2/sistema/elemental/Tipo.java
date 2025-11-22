@@ -5,4 +5,6 @@ public enum Tipo {
     FUEGO, 
     AIRE, 
     TIERRA
+    
+  
 }

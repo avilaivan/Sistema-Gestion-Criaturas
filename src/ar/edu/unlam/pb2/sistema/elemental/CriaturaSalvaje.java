@@ -13,4 +13,6 @@ public class CriaturaSalvaje extends Criatura {
 	}
 	
 	
+	
+	
 }
