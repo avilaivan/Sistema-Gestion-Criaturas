@@ -19,4 +19,6 @@ public abstract class Criatura {
 	public Integer getEnergia() {
 		return energia;
 	}
-}
+
+	protected abstract void entrenar();
+	}
