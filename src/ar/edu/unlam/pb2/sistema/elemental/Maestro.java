@@ -32,7 +32,7 @@ public class Maestro {
         
         if (criatura != null) {
             
-            if (this.nivelMaestria < 5) { 
+            if (this.nivelMaestria< 5) { 
                 throw new MaestriaInsuficienteException("Nivel insuficiente para entrenar.");
             }
             
