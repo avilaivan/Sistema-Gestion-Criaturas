@@ -1,6 +1,12 @@
 package ar.edu.unlam.pb2.sistema.elemental;
 
 public abstract class Criatura {
+    
+    
+    private static final Integer BONUS_ANCESTRAL = 20;
+    private static final Integer PENALIZACION_ANCESTRAL = 15;
+    private static final Integer BONUS_MISMO_TIPO = 10;
+
     protected String nombre;
     protected Integer energia;
     protected Tipo tipo;
@@ -28,59 +34,52 @@ public abstract class Criatura {
     public Boolean esInestable() {
         return inestable;
     }
-
     
     public abstract void entrenar() throws EnergiaDesbordadaException;
     public abstract void disminuirEnergia(Integer cantidad);
 
     public void interactuarCon(Criatura otra) {
         
-        //si es ancestral y el otro no, gana ancestral 
+        // Si es ancestral y el otro no, gana ancestral 
         if (this instanceof CriaturaAncestral && !(otra instanceof CriaturaAncestral)) {
-            this.recibirEnergia(20);
-            otra.disminuirEnergia(15);
+            this.recibirEnergia(BONUS_ANCESTRAL); // + 20 
+            otra.disminuirEnergia(PENALIZACION_ANCESTRAL); // - 15
             return; 
         }
         
-        //si el otro es ancestral y yo no, gana el otro
+        // Si el otro es ancestral y yo no, gana el otro
         if (!(this instanceof CriaturaAncestral) && otra instanceof CriaturaAncestral) {
-            this.disminuirEnergia(15);
-            otra.recibirEnergia(20);
+            this.disminuirEnergia(PENALIZACION_ANCESTRAL);
+            otra.recibirEnergia(BONUS_ANCESTRAL);
             return;
         }
 
-        //si son del mismo tipo, ambos ganaran energia
+        // Si son del mismo tipo, ambos ganaran energia
         if (this.tipo == otra.getTipo()) {
-            this.recibirEnergia(10);
-            otra.recibirEnergia(10);
+            this.recibirEnergia(BONUS_MISMO_TIPO); //ambos + 10
+            otra.recibirEnergia(BONUS_MISMO_TIPO);
             return;
         }
 
-        //si son opuestos, ambos se vuelven inestables
+        // Si son opuestos, ambos se vuelven inestables
         if (sonOpuestos(this.tipo, otra.getTipo())) {
             this.setInestable(Boolean.TRUE);
             otra.setInestable(Boolean.TRUE);
         }
     }
 
-    
-
     protected void recibirEnergia(Integer cantidad) {
         this.energia = this.energia + cantidad;
     }
     
-    // te permite cambiar el estado del oponente
     public void setInestable(Boolean estado) {
         this.inestable = estado;
     }
 
-    // logica para tipos opuestos
     private Boolean sonOpuestos(Tipo tipo1, Tipo tipo2) {
-        // AGUA vs FUEGO
         if ((tipo1 == Tipo.AGUA && tipo2 == Tipo.FUEGO) || (tipo1 == Tipo.FUEGO && tipo2 == Tipo.AGUA)) {
             return true;
         }
-        // AIRE vs TIERRA
         if ((tipo1 == Tipo.AIRE && tipo2 == Tipo.TIERRA) || (tipo1 == Tipo.TIERRA && tipo2 == Tipo.AIRE)) {
             return true;
         }
