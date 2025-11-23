@@ -17,8 +17,9 @@ public class Maestro {
         this.criaturas = new HashMap<>(); 
     }
 
+    //Metodo de negocio
+
     public void agregarCriatura(Criatura criatura) {
-        
         this.criaturas.put(criatura.getNombre(), criatura);
     }
 
@@ -31,13 +32,40 @@ public class Maestro {
         Criatura criatura = this.criaturas.get(nombreCriatura);
         
         if (criatura != null) {
-            
-            if (this.nivelMaestria< 5) { 
+            if (this.nivelMaestria < 5) { 
                 throw new MaestriaInsuficienteException("Nivel insuficiente para entrenar.");
             }
-            
-            
             criatura.entrenar();
         }
     }
+    
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Integer getNivelMaestria() {
+        return nivelMaestria;
+    }
+
+    public void setNivelMaestria(Integer nivelMaestria) {
+        this.nivelMaestria = nivelMaestria;
+    }
+
+    public Tipo getAfinidad() {
+        return afinidad;
+    }
+
+    public void setAfinidad(Tipo afinidad) {
+        this.afinidad = afinidad;
+    }
+
+    public Map<String, Criatura> getCriaturas() {
+        return this.criaturas;
+    }
+    
 }
